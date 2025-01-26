@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Test Web</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #1a1a1a, #2d2d2d, #1f1f1f, #2a2a2a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background: rgba(20, 20, 20, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 90%;
+        }
+
+        button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            background: linear-gradient(45deg, #f57c00, #ff9800);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 15px rgba(245, 124, 0, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            transform: scale(1.1) rotate(-2deg);
+            box-shadow: 0 6px 20px rgba(245, 124, 0, 0.6);
+        }
+
+        button.hidden {
+            opacity: 0;
+            transform: translateY(-20px) scale(0.8);
+            pointer-events: none;
+        }
+
+        .bojack-container {
+            margin-top: 1.5rem;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: drop-shadow(0 0 10px rgba(245, 124, 0, 0.3));
+        }
+
+        .bojack-container.visible {
+            opacity: 1;
+            animation: floatAnimation 3s ease-in-out infinite;
+        }
+
+        .bojack-image {
+            width: 40vw;
+            max-width: 150px;
+            height: 40vw;
+            max-height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            transform: rotate(15deg);
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: drop-shadow(0 0 8px rgba(245, 124, 0, 0.3));
+        }
+
+        .bojack-container.visible .bojack-image:hover {
+            transform: rotate(20deg) scale(1.1);
+            filter: drop-shadow(0 0 15px rgba(238, 135, 33, 0.6));
+        }
+
+        .message {
+            margin-top: 2rem;
+            font-size: 2rem;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.5s ease;
+            font-weight: 700;
+            color: #f5f5f5;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            letter-spacing: 1px;
+        }
+
+        .message.visible {
+            opacity: 1;
+            transform: scale(1);
+            animation: pulseText 2s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+            0%, 100% {
+                transform: translateY(0);
+                filter: drop-shadow(0 0 10px rgba(245, 124, 0, 0.3));
+            }
+            50% {
+                transform: translateY(-10px);
+                filter: drop-shadow(0 0 20px rgba(245, 124, 0, 0.5));
+            }
+        }
+
+        @keyframes pulseText {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .message {
+                font-size: 1.5rem;
+            }
+
+            button {
+                font-size: 0.9rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .message {
+                font-size: 1.2rem;
+            }
+
+            button {
+                font-size: 0.8rem;
+                padding: 0.6rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button onclick="showBojackAndMessage()">Click here ✨</button>
+        <div class="bojack-container">
+            <!-- Replace the src with your Bojack image filename -->
+            <img class="bojack-image" src="bjhorse.jpeg" alt="Bojack Horseman" />
+        </div>
+        <div class="message">Stay smiling</div>
+    </div>
+
+    <script>
+        function showBojackAndMessage() {
+            document.querySelector('button').classList.add('hidden');
+            document.querySelector('.bojack-container').classList.add('visible');
+            setTimeout(() => {
+                document.querySelector('.message').classList.add('visible');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
